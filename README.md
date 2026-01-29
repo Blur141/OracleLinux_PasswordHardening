@@ -1,9 +1,9 @@
-Oracle Linux 8 – Password Hardening Guide 🔐
-This repository documents the steps and configurations applied for password hardening on Oracle Linux 8 systems.
-# ⚠️ Important:
+# Oracle Linux 8 – Password Hardening Guide 🔐
+## This repository documents the steps and configurations applied for password hardening on Oracle Linux 8 systems.
+## ⚠️ Important:
 This guide is intended for testing / non-production environments unless explicitly reviewed and approved by security & audit teams.
 
-# ⚠️ Critical Warning (Read Before Applying)
+## ⚠️ Critical Warning (Read Before Applying)
 ❌ Do NOT blindly execute this script in Production
 The configurations shown here overwrite existing .conf files completely.
 This may remove default or vendor-recommended settings
@@ -13,7 +13,7 @@ Open each configuration file manually
 Modify only the required parameters
 Keep existing defaults intact
 
-# 📌 Pre-Requisites (MANDATORY)
+## 📌 Pre-Requisites (MANDATORY)
 
 Take Backup of Configuration Files
 Always back up before making changes:
@@ -28,7 +28,7 @@ Example backup command:
 
 `cp /etc/security/pwquality.conf /etc/security/pwquality.conf.bak`
 
-# 🔐 Password Policy Configuration (pwquality)
+## 🔐 Password Policy Configuration (pwquality)
 
 Strong Password Policy
 `cat > /etc/security/pwquality.conf << 'EOF`
@@ -47,7 +47,7 @@ Strong Password Policy
 `sed -ri 's/^PASS_MIN_DAYS.*/PASS_MIN_DAYS 1/'  /etc/login.defs`
 `sed -ri 's/^PASS_WARN_AGE.*/PASS_WARN_AGE 14/' /etc/login.defs`
 
-# 🔒 Account Lockout Policy (faillock)
+## 🔒 Account Lockout Policy (faillock)
 
 `cat > /etc/security/faillock.conf << 'EOF'`
 `deny = 5`
@@ -82,7 +82,7 @@ Option	Meaning
 -M	Maximum days
 -W	Warning days
 
-# 🔁 Password History Enforcement (PAM)
+## 🔁 Password History Enforcement (PAM)
 
 To prevent reuse of old passwords, update:
 
@@ -97,7 +97,7 @@ To prevent reuse of old passwords, update:
 `password    sufficient   pam_sss.so use_authtok`
 `password    required     pam_deny.so`
 
-# 📌 This ensures:
+## 📌 This ensures:
 
 Last 4 passwords cannot be reused
 
@@ -107,7 +107,7 @@ Policy enforced for root as well
 Oracle Linux 8 Security Documentation
 https://docs.oracle.com/en/operating-systems/oracle-linux/8/security/security-ConfiguringUserAuthenticationandPasswordPolicies.html
 
-# 🧪 Mandatory Testing Step (VERY IMPORTANT)
+## 🧪 Mandatory Testing Step (VERY IMPORTANT)
 
 Before closing the current SSH/Putty session:
 Open a new terminal session
@@ -119,7 +119,7 @@ Lockout behavior
 Password history enforcement
 ### ⚠️ This prevents accidental lockout.
 
-# 👨‍💻 User Management
+## 👨‍💻 User Management
 
 Create User with Sudo Access
 
@@ -142,7 +142,7 @@ or
 `cat /etc/passwd | grep username`
 
 
-# 📌 Final Notes
+## 📌 Final Notes
 
 ✔ Tested on Oracle Linux 8
 
